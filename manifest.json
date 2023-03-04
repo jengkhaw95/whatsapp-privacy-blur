@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+  "name": "WhatsApp Privacy - Blur",
+  "version": "1.0",
+  "description": "WhatsApp Privacy - Blur contact name & message when no active chat is selected.",
+  "permissions": ["activeTab", "storage"],
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://web.whatsapp.com/*"],
+      "js": ["content.js"]
+    }
+  ]
+}
