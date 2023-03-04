@@ -6,4 +6,4 @@ Works on [WhatsApp web](https://web.whatsapp.com/) only.
 
 ## Disclaimer
 
-This project is created to experience the process of create a chrome extension.
+This project is created to experience the process of creating a chrome extension.
