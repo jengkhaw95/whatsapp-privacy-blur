@@ -9,7 +9,6 @@ const chatLastMessageToUnblurSelector = `#pane-side div:not([aria-selected='true
 
 // Listen for messages from the popup
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-  console.log({message});
   if (message.enabled === isEnabled) {
     return;
   }
@@ -83,7 +82,6 @@ function unblurBySelector(selectors) {
 
 chrome.storage.sync.get("whatsapp-blur-enabled", function (data) {
   isEnabled = data["whatsapp-blur-enabled"];
-  console.log({isEnabled});
   if (isEnabled) {
     execution();
     // Listen for the keydown event on the document
