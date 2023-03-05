@@ -8,13 +8,19 @@ body {
   width: 360px;
   padding: 8px 16px 16px;
 }
-h1 {
+section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin-bottom: 12px;
+}
+h1 {
   color: #333;
 }
 label {
   font-size: 16px;
   color: #444;
+  user-select: none;
 }
 input[type="checkbox"] {
   margin-right: 8px;

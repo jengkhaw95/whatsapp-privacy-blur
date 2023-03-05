@@ -1,5 +1,5 @@
 console.log("In content script");
-
+let isEnabled = false;
 const contactNameSelector = `#pane-side [data-testid="cell-frame-title"]`;
 const lastMessageSelector = `#pane-side [data-testid="last-msg-status"]`;
 const activeChatContactNameToBlurSelector = `#pane-side div[aria-selected='true'][role='row'] [data-testid="cell-frame-title"]`;
@@ -9,7 +9,12 @@ const chatLastMessageToUnblurSelector = `#pane-side div:not([aria-selected='true
 
 // Listen for messages from the popup
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-  if (message.enabled) {
+  console.log({message});
+  if (message.enabled === isEnabled) {
+    return;
+  }
+  isEnabled = message.enabled;
+  if (isEnabled) {
     execution();
     // Listen for the keydown event on the document
     document.addEventListener("keydown", keydownHandler);
@@ -24,6 +29,9 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 
 // Handle the keydown event
 function keydownHandler(event) {
+  if (!isEnabled) {
+    return;
+  }
   if (event.key === "Escape") {
     // Change the style of the element
     setTimeout(() => {
@@ -33,6 +41,9 @@ function keydownHandler(event) {
 }
 // Handle the pointerdown event
 function pointerdownHandler() {
+  if (!isEnabled) {
+    return;
+  }
   setTimeout(() => {
     execution();
   }, 100);
@@ -71,7 +82,8 @@ function unblurBySelector(selectors) {
 }
 
 chrome.storage.sync.get("whatsapp-blur-enabled", function (data) {
-  const isEnabled = data["whatsapp-blur-enabled"];
+  isEnabled = data["whatsapp-blur-enabled"];
+  console.log({isEnabled});
   if (isEnabled) {
     execution();
     // Listen for the keydown event on the document
